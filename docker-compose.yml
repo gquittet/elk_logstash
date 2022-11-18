@@ -21,6 +21,7 @@ services:
     hostname: elk_elastic
     container_name: elk_elastic
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    restart: always
     ports:
       - "${ES_PORT}:9200"
     environment:
@@ -47,6 +48,7 @@ services:
     hostname: elk_kibana
     container_name: elk_kibana
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    restart: always
     environment:
       ELASTICSEARCH_HOSTS: http://elastic:9200
       ELASTICSEARCH_USERNAME: kibana_system
@@ -69,6 +71,7 @@ services:
     hostname: elk_metricbeat
     container_name: elk_metricbeat
     image: docker.elastic.co/beats/metricbeat:${STACK_VERSION}
+    restart: always
     volumes:
       - metricbeat:/usr/share/metricbeat/data
     environment:
@@ -87,6 +90,7 @@ services:
     hostname: elk_filebeat
     container_name: elk_filebeat
     image: docker.elastic.co/beats/filebeat:${STACK_VERSION}
+    restart: always
     environment:
       ELASTICSEARCH_HOSTS: http://elastic:9200
       ELASTICSEARCH_USERNAME: elastic
@@ -105,6 +109,7 @@ services:
     hostname: elk_logstash
     container_name: elk_logstash
     image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    restart: always
     environment:
       LS_JAVA_OPTS: -Xms256m -Xmx256m
       ELASTICSEARCH_HOSTS: http://elastic:9200
